@@ -465,6 +465,36 @@ def test_to_pydatetime(dt):
     isinstance(dt, datetime_.datetime)
 
 
+def test_to_end_of_day():
+    r = to_end_of_day(datetime(2019, 12, 31))
+    assert r == datetime(2019, 12, 31, 23, 59, 59)
+
+
+def test_to_start_of_day():
+    r = to_start_of_day(datetime(2019, 12, 31, 23, 59, 59))
+    assert r == datetime(2019, 12, 31)
+
+
+def test_to_start_of_minute():
+    r = to_start_of_minute(datetime(2019, 12, 31, 23, 59, 59))
+    assert r == datetime(2019, 12, 31, 23, 59, 0)
+
+
+def test_to_end_of_minute():
+    r = to_end_of_minute(datetime(2019, 12, 31, 23, 59, 0))
+    assert r == datetime(2019, 12, 31, 23, 59, 59)
+
+
+def test_to_start_of_hour():
+    r = to_start_of_hour(datetime(2019, 12, 31, 23, 59, 59))
+    assert r == datetime(2019, 12, 31, 23, 0, 0)
+
+
+def test_to_end_of_hour():
+    r = to_end_of_hour(datetime(2019, 12, 31, 23, 0, 0))
+    assert r == datetime(2019, 12, 31, 23, 59, 59)
+
+
 def test_to_start_of_week():
     r = to_start_of_week(datetime(2019, 8, 26))
     assert r == datetime(2019, 8, 26)
@@ -519,8 +549,3 @@ def test_to_end_of_year():
     assert r == datetime(2019, 12, 31)
     r2 = to_end_of_year(datetime(2019, 12, 27))
     assert r2 == datetime(2019, 12, 31)
-
-
-def test_to_end_of_of_day():
-    r = to_end_of_day(datetime(2019, 12, 31))
-    print(r)

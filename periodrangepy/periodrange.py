@@ -37,6 +37,22 @@ def _to_pydatetime(dt):
     return dt
 
 
+def to_start_of_minute(dt):
+    return dt.replace(second=0, microsecond=0)
+
+
+def to_end_of_minute(dt):
+    return dt.replace(second=59, microsecond=0)
+
+
+def to_start_of_hour(dt):
+    return dt.replace(minute=0, second=0, microsecond=0)
+
+
+def to_end_of_hour(dt):
+    return dt.replace(minute=59, second=59, microsecond=0)
+
+
 def to_start_of_day(dt):
     return dt.replace(hour=0, minute=0, second=0, microsecond=0)
 
