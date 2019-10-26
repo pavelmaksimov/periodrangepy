@@ -7,24 +7,31 @@ from dateutil import relativedelta
 
 def _to_pydatetime(dt):
     """Преобразование в datetime."""
-    if isinstance(dt, str):
-        raise TypeError("Дата не должна быть в формате строки")
+    try:
+        if isinstance(dt, str):
+            raise TypeError("Дата не должна быть в формате строки")
 
-    if dt.__class__.__name__ == "Pendulum":
-        # Если тип Pendulum.
-        dt = dt.to_datetime_string()
+        if dt.__class__.__name__ == "Pendulum":
+            # Если тип Pendulum.
+            dt = dt.to_datetime_string()
 
-    if dt.__class__.__name__ == "Date":
-        # Если тип Pendulum Date.
-        dt = dt.to_date_string()
+        if dt.__class__.__name__ == "Date":
+            # Если тип Pendulum Date.
+            dt = dt.to_date_string()
 
-    if isinstance(dt, datetime_.date):
-        # Если тип date.
-        dt = datetime.combine(dt, datetime.min.time())
+        if isinstance(dt, datetime_.date):
+            # Если тип date.
+            dt = datetime.combine(dt, datetime.min.time())
 
-    if isinstance(dt, float):
-        # Если тип timestamp.
-        dt = datetime.fromtimestamp(dt)
+        if isinstance(dt, float):
+            # Если тип timestamp.
+            dt = datetime.fromtimestamp(dt)
+
+    except Exception:
+        raise TypeError(
+            "Ошибка при преобразовании входных значений даты и времени в pydatetime."
+            "Попробуйте сами привести их в формат pydatetime"
+        )
 
     return dt
 
