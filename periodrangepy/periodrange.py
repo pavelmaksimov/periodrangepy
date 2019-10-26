@@ -37,44 +37,48 @@ def _to_pydatetime(dt):
     return dt
 
 
-def _time_zeroing(dt):
+def to_start_of_day(dt):
     return dt.replace(hour=0, minute=0, second=0, microsecond=0)
 
 
+def to_end_of_day(dt):
+    return to_start_of_day(dt) + timedelta(1) - timedelta(seconds=1)
+
+
 def to_start_of_week(dt):
-    return _time_zeroing(dt - timedelta(dt.isoweekday() - 1))
+    return to_start_of_day(dt - timedelta(dt.isoweekday() - 1))
 
 
-def to_end_week(dt):
-    return _time_zeroing(dt + timedelta(7 - dt.isoweekday()))
+def to_end_of_week(dt):
+    return to_start_of_day(dt + timedelta(7 - dt.isoweekday()))
 
 
 def to_start_of_month(dt):
-    return _time_zeroing(dt - timedelta(dt.day - 1))
+    return to_start_of_day(dt - timedelta(dt.day - 1))
 
 
-def to_end_month(dt):
+def to_end_of_month(dt):
     start_next_month = to_start_of_month(dt + relativedelta.relativedelta(months=+1))
-    return _time_zeroing(start_next_month - timedelta(1))
+    return to_start_of_day(start_next_month - timedelta(1))
 
 
 def to_start_of_quarter(dt):
     quarter_num = (dt.month - 1) // 3 + 1
     month_num_start_quarter = quarter_num * 3 - 2
-    return _time_zeroing(dt.replace(month=month_num_start_quarter, day=1))
+    return to_start_of_day(dt.replace(month=month_num_start_quarter, day=1))
 
 
-def to_end_quarter(dt):
+def to_end_of_quarter(dt):
     start_next_quarter = to_start_of_quarter(dt) + relativedelta.relativedelta(months=+3)
-    return _time_zeroing(start_next_quarter - timedelta(1))
+    return to_start_of_day(start_next_quarter - timedelta(1))
 
 
 def to_start_of_year(dt):
-    return _time_zeroing(datetime(dt.year, 1, 1))
+    return to_start_of_day(datetime(dt.year, 1, 1))
 
 
-def to_end_year(dt):
-    return _time_zeroing(datetime(dt.year, 12, 31))
+def to_end_of_year(dt):
+    return to_start_of_day(datetime(dt.year, 12, 31))
 
 
 def get_start_period(dt, frequency):
@@ -109,17 +113,17 @@ def get_end_period(dt, frequency):
         "date": lambda dt: dt + timedelta(1),
         "day": lambda dt: dt + timedelta(1),
         "d": lambda dt: dt + timedelta(1),
-        "w": to_end_week,
-        "weekly": to_end_week,
-        "week": to_end_week,
-        "monthly": to_end_month,
-        "month": to_end_month,
-        "m": to_end_month,
-        "quarter": to_end_quarter,
-        "quarterly": to_end_quarter,
-        "q": to_end_quarter,
-        "year": to_end_year,
-        "y": to_end_year,
+        "w": to_end_of_week,
+        "weekly": to_end_of_week,
+        "week": to_end_of_week,
+        "monthly": to_end_of_month,
+        "month": to_end_of_month,
+        "m": to_end_of_month,
+        "quarter": to_end_of_quarter,
+        "quarterly": to_end_of_quarter,
+        "q": to_end_of_quarter,
+        "year": to_end_of_year,
+        "y": to_end_of_year,
     }
     try:
         f = frequencies[frequency]

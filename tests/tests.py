@@ -472,10 +472,10 @@ def test_to_start_of_week():
     assert r2 == datetime(2019, 8, 26)
 
 
-def test_to_end_week():
-    r = to_end_week(datetime(2019, 9, 1))
+def test_to_end_of_week():
+    r = to_end_of_week(datetime(2019, 9, 1))
     assert r == datetime(2019, 9, 1)
-    r2 = to_end_week(datetime(2019, 8, 27))
+    r2 = to_end_of_week(datetime(2019, 8, 27))
     assert r2 == datetime(2019, 9, 1)
 
 
@@ -486,10 +486,10 @@ def test_to_start_of_month():
     assert r2 == datetime(2019, 8, 1)
 
 
-def test_to_end_month():
-    r = to_end_month(datetime(2019, 8, 31))
+def test_to_end_of_month():
+    r = to_end_of_month(datetime(2019, 8, 31))
     assert r == datetime(2019, 8, 31)
-    r2 = to_end_month(datetime(2019, 8, 27))
+    r2 = to_end_of_month(datetime(2019, 8, 27))
     assert r2 == datetime(2019, 8, 31)
 
 
@@ -500,10 +500,10 @@ def test_to_start_of_quarter():
     assert r2 == datetime(2019, 1, 1)
 
 
-def test_to_end_quarter():
-    r = to_end_quarter(datetime(2019, 3, 31))
+def test_to_end_of_quarter():
+    r = to_end_of_quarter(datetime(2019, 3, 31))
     assert r == datetime(2019, 3, 31)
-    r2 = to_end_quarter(datetime(2019, 3, 27))
+    r2 = to_end_of_quarter(datetime(2019, 3, 27))
     assert r2 == datetime(2019, 3, 31)
 
 
@@ -514,8 +514,13 @@ def test_to_start_of_year():
     assert r2 == datetime(2019, 1, 1)
 
 
-def test_to_end_year():
-    r = to_end_year(datetime(2019, 12, 31))
+def test_to_end_of_year():
+    r = to_end_of_year(datetime(2019, 12, 31))
     assert r == datetime(2019, 12, 31)
-    r2 = to_end_year(datetime(2019, 12, 27))
+    r2 = to_end_of_year(datetime(2019, 12, 27))
     assert r2 == datetime(2019, 12, 31)
+
+
+def test_to_end_of_of_day():
+    r = to_end_of_day(datetime(2019, 12, 31))
+    print(r)
