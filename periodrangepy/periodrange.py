@@ -27,10 +27,11 @@ def _to_pydatetime(dt):
             # Если тип timestamp.
             dt = datetime.fromtimestamp(dt)
 
-    except Exception:
+    except Exception as e:
         raise TypeError(
             "Ошибка при преобразовании входных значений даты и времени в pydatetime."
-            "Попробуйте сами привести их в формат pydatetime"
+            "Попробуйте сами привести их в формат pydatetime\n"
+            + str(e)
         )
 
     return dt
