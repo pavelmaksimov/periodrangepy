@@ -6,8 +6,8 @@ from .periodrange import (
     to_end_quarter,
     to_end_week,
     to_end_year,
-    to_start_month,
-    to_start_quarter,
-    to_start_week,
-    to_start_year,
+    to_start_of_month,
+    to_start_of_quarter,
+    to_start_of_week,
+    to_start_of_year,
 )

@@ -465,10 +465,10 @@ def test_to_pydatetime(dt):
     isinstance(dt, datetime_.datetime)
 
 
-def test_to_start_week():
-    r = to_start_week(datetime(2019, 8, 26))
+def test_to_start_of_week():
+    r = to_start_of_week(datetime(2019, 8, 26))
     assert r == datetime(2019, 8, 26)
-    r2 = to_start_week(datetime(2019, 8, 27))
+    r2 = to_start_of_week(datetime(2019, 8, 27))
     assert r2 == datetime(2019, 8, 26)
 
 
@@ -479,10 +479,10 @@ def test_to_end_week():
     assert r2 == datetime(2019, 9, 1)
 
 
-def test_to_start_month():
-    r = to_start_month(datetime(2019, 8, 1))
+def test_to_start_of_month():
+    r = to_start_of_month(datetime(2019, 8, 1))
     assert r == datetime(2019, 8, 1)
-    r2 = to_start_month(datetime(2019, 8, 2))
+    r2 = to_start_of_month(datetime(2019, 8, 2))
     assert r2 == datetime(2019, 8, 1)
 
 
@@ -493,10 +493,10 @@ def test_to_end_month():
     assert r2 == datetime(2019, 8, 31)
 
 
-def test_to_start_quarter():
-    r = to_start_quarter(datetime(2019, 1, 1))
+def test_to_start_of_quarter():
+    r = to_start_of_quarter(datetime(2019, 1, 1))
     assert r == datetime(2019, 1, 1)
-    r2 = to_start_quarter(datetime(2019, 1, 2))
+    r2 = to_start_of_quarter(datetime(2019, 1, 2))
     assert r2 == datetime(2019, 1, 1)
 
 
@@ -507,10 +507,10 @@ def test_to_end_quarter():
     assert r2 == datetime(2019, 3, 31)
 
 
-def test_to_start_year():
-    r = to_start_year(datetime(2019, 1, 1))
+def test_to_start_of_year():
+    r = to_start_of_year(datetime(2019, 1, 1))
     assert r == datetime(2019, 1, 1)
-    r2 = to_start_year(datetime(2019, 1, 2))
+    r2 = to_start_of_year(datetime(2019, 1, 2))
     assert r2 == datetime(2019, 1, 1)
 
 

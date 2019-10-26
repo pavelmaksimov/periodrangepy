@@ -41,7 +41,7 @@ def _time_zeroing(dt):
     return dt.replace(hour=0, minute=0, second=0, microsecond=0)
 
 
-def to_start_week(dt):
+def to_start_of_week(dt):
     return _time_zeroing(dt - timedelta(dt.isoweekday() - 1))
 
 
@@ -49,27 +49,27 @@ def to_end_week(dt):
     return _time_zeroing(dt + timedelta(7 - dt.isoweekday()))
 
 
-def to_start_month(dt):
+def to_start_of_month(dt):
     return _time_zeroing(dt - timedelta(dt.day - 1))
 
 
 def to_end_month(dt):
-    start_next_month = to_start_month(dt + relativedelta.relativedelta(months=+1))
+    start_next_month = to_start_of_month(dt + relativedelta.relativedelta(months=+1))
     return _time_zeroing(start_next_month - timedelta(1))
 
 
-def to_start_quarter(dt):
+def to_start_of_quarter(dt):
     quarter_num = (dt.month - 1) // 3 + 1
     month_num_start_quarter = quarter_num * 3 - 2
     return _time_zeroing(dt.replace(month=month_num_start_quarter, day=1))
 
 
 def to_end_quarter(dt):
-    start_next_quarter = to_start_quarter(dt) + relativedelta.relativedelta(months=+3)
+    start_next_quarter = to_start_of_quarter(dt) + relativedelta.relativedelta(months=+3)
     return _time_zeroing(start_next_quarter - timedelta(1))
 
 
-def to_start_year(dt):
+def to_start_of_year(dt):
     return _time_zeroing(datetime(dt.year, 1, 1))
 
 
@@ -83,17 +83,17 @@ def get_start_period(dt, frequency):
         "date": lambda dt: dt,
         "day": lambda dt: dt,
         "d": lambda dt: dt,
-        "w": to_start_week,
-        "weekly": to_start_week,
-        "week": to_start_week,
-        "monthly": to_start_month,
-        "month": to_start_month,
-        "m": to_start_month,
-        "quarter": to_start_quarter,
-        "quarterly": to_start_quarter,
-        "q": to_start_quarter,
-        "year": to_start_year,
-        "y": to_start_year,
+        "w": to_start_of_week,
+        "weekly": to_start_of_week,
+        "week": to_start_of_week,
+        "monthly": to_start_of_month,
+        "month": to_start_of_month,
+        "m": to_start_of_month,
+        "quarter": to_start_of_quarter,
+        "quarterly": to_start_of_quarter,
+        "q": to_start_of_quarter,
+        "year": to_start_of_year,
+        "y": to_start_of_year,
     }
     try:
         f = frequencies[frequency]
