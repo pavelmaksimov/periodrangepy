@@ -21,4 +21,4 @@ from .periodrange import (
 
 __author__ = 'Pavel Maksimov'
 __email__ = 'vur21@ya.ru'
-__version__ = '2019.9.1'
+__version__ = '2019.9.2'
