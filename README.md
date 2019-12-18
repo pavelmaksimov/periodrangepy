@@ -1,4 +1,4 @@
 # Библиотека для генерации периодов.
 
 ### Установка
-    pip install --upgrade git+https://github.com/pavelmaksimov/periodrangepy.git
+    pip install --upgrade periodrangepy
