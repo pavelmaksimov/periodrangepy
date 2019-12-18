@@ -17,3 +17,8 @@ from .periodrange import (
     to_start_of_minute,
     to_start_of_hour,
 )
+
+
+__author__ = 'Pavel Maksimov'
+__email__ = 'vur21@ya.ru'
+__version__ = '2019.9.1'
