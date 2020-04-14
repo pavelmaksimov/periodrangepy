@@ -11,14 +11,6 @@ def _to_pydatetime(dt):
         if isinstance(dt, str):
             raise TypeError("Дата не должна быть в формате строки")
 
-        if dt.__class__.__name__ == "Pendulum":
-            # Если тип Pendulum.
-            dt = dt.to_datetime_string()
-
-        if dt.__class__.__name__ == "Date":
-            # Если тип Pendulum Date.
-            dt = dt.to_date_string()
-
         if isinstance(dt, datetime_.date):
             # Если тип date.
             dt = datetime.combine(dt, datetime.min.time())
@@ -147,6 +139,62 @@ def get_end_period(dt, frequency):
         raise
     else:
         return f(dt)
+
+
+def date_range(start_date,
+               end_date=None,
+               num=None,
+               delta=None,
+               return_string_format=False,
+               string_format='%Y-%m-%d',
+               reverse_sort=False):
+    """
+
+    :param start_date: datetime or str (От даты)
+    :param end_date: datetime or str (До даты)
+    :param delta: int (интервал кол-во дней, между датами)
+    :param return_string_format: bool (вернуть в даты в виду строки)
+    :param string_format: str (формат выводимых дат в виде строки)
+    :param mandatory_end_date: bool (сделать end_date конечной датой, если заданный интервал превысит её)
+    :return: list
+    """
+    if type(delta) is int:
+        delta = timedelta(delta)
+    else:
+        raise TypeError("num должен быть в формате int")
+
+    if not delta:
+        return []
+    if end_date and start_date > end_date:
+        raise ValueError("start_date needs to be before end_date")
+    if end_date and num:
+        raise ValueError("Either specify end_date OR num")
+    if not end_date and not num:
+        end_date = datetime.now().date()
+
+    l = []
+    if end_date:
+        while start_date <= end_date:
+            l.append(start_date)
+            start_date += delta
+        if end_date > l[-1]:
+            # Если с выбранным delta интервалом крайняя дата получается больше,
+            # чем end_date, она не добавляеся, поэтому добавляется end_date.
+            l.append(end_date)
+    else:
+        for i in range(abs(num)):
+            l.append(start_date)
+            if num >= 0:
+                start_date += delta
+            else:
+                start_date -= delta
+
+    l.sort(reverse=reverse_sort)
+
+    if return_string_format:
+        l = [i.strftime(string_format) for i in l]
+
+    return l
 
 
 def period_range(

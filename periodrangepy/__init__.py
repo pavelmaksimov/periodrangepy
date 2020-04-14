@@ -1,4 +1,5 @@
 from .periodrange import (
+    date_range,
     period_range,
     get_end_period,
     get_start_period,
@@ -21,4 +22,4 @@ from .periodrange import (
 
 __author__ = 'Pavel Maksimov'
 __email__ = 'vur21@ya.ru'
-__version__ = '2019.9.2'
+__version__ = '2020.4.14'
