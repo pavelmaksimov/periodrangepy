@@ -324,3 +324,20 @@ def period_range(
         return periods_dict
     else:
         return periods
+
+
+def days_offset(n, hour=0, minute=0, second=0, microsecond=0):
+    """
+    :param n: int, если отрицательное то вычтет, если положительное то прибавит
+    :param hour: int
+    :param minute: int
+    :param second: int
+    :param microsecond: int
+    :return: datetime
+    """
+    today = datetime.now().replace(
+        hour=hour,
+        minute=minute,
+        second=second,
+        microsecond=microsecond)
+    return today + timedelta(days=n)
