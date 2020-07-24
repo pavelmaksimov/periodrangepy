@@ -5,11 +5,11 @@ from datetime import datetime, timedelta
 from dateutil import relativedelta
 
 
-def _to_pydatetime(dt):
+def _to_pydatetime(dt, format):
     """Преобразование в datetime."""
     try:
         if isinstance(dt, str):
-            raise TypeError("Дата не должна быть в формате строки")
+            dt = datetime.strptime(dt, format)
 
         if isinstance(dt, datetime_.date):
             # Если тип date.
@@ -203,9 +203,8 @@ def period_range(
     num=None,
     frequency="day",
     delta=1,
-    as_dict=False,
-    add_date_as_string=True,
-    string_format="%Y-%m-%d",
+    input_format="%Y-%m-%d",
+    output_format="%Y-%m-%d",
 ):
     """
     :param start_date: date, datetime, pendulum, timestamp : дата начала периода
@@ -219,27 +218,17 @@ def period_range(
         y|yearly|year :
         частота периода, день, неделя, месяц, квартал или год
     :param delta: int : кол-во интервалов
-    :param as_dict: bool : вернуть как словарь, по дефолту список списков
-    :param add_date_as_string: bool :
-        Если as_dict=True, то в словарь можно добавить дату в формате стрингов.
-    :param string_format: str : Если add_date_as_string=True, то можно задать формат строки даты
-    :return: list(dict), list(list) :
-        Если as_dict=False:
-        [[dt, dt], [dt, dt]]
-        Если as_dict=True:
-        [{"date1": dt, "date2": dt}]
-        Если as_dict=True и add_date_as_string=True:
+    :param input_format: str : если входящие даты начала и конца периода в формате строки, будет парсить в этом формате
+    :param output_format: str : в результат добавляется даты в формате строки в указанном формате даты
+    :return: list(list) :
         [
-            {
-                "date1": dt,
-                "date2": dt,
-                "date1_str": str,
-                "date2_str": str
-            }
+            datetime,
+            datetime,
+            "2020-01-01",
+            "2020-01-01",
         ]
-
     """
-    start_date = _to_pydatetime(start_date)
+    start_date = _to_pydatetime(start_date, input_format)
 
     if end_date is None:
         relative_dict = {
@@ -262,7 +251,7 @@ def period_range(
         }
         end_date = start_date + relative_dict[frequency]
     else:
-        end_date = _to_pydatetime(end_date)
+        end_date = _to_pydatetime(end_date, input_format)
 
     if delta < 1:
         raise Exception
@@ -305,25 +294,16 @@ def period_range(
         iter_start_period += relativedelta.relativedelta(**frequencies[frequency])
         end_periods.append(iter_start_period - timedelta(1))
 
-    periods = [[dt1, dt2] for dt1, dt2 in zip(start_periods, end_periods)]
+    periods_list = [[dt1, dt2] for dt1, dt2 in zip(start_periods, end_periods)]
 
-    periods[0][0] = start_date
-    periods[-1][1] = end_date
+    periods_list[0][0] = start_date
+    periods_list[-1][1] = end_date
 
-    if as_dict:
-        periods_dict = []
-        for i in periods:
-            date_ = dict(date1=i[0], date2=i[1])
-            if add_date_as_string:
-                date_.update(
-                    date1_str=i[0].strftime(string_format),
-                    date2_str=i[1].strftime(string_format),
-                )
-            periods_dict.append(date_)
+    for period in periods_list:
+        period.append(period[0].strftime(output_format))
+        period.append(period[1].strftime(output_format))
 
-        return periods_dict
-    else:
-        return periods
+    return periods_list
 
 
 def days_offset(n, hour=0, minute=0, second=0, microsecond=0):

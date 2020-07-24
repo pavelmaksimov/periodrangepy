@@ -38,12 +38,10 @@ def test_period_day_range(
         end_date=end_date,
         frequency="day",
         delta=delta,
-        as_dict=True,
-        string_format="%Y-%m-%d",
     )
     print(result)
-    assert result[0]["date1_str"] == result_date1
-    assert result[0]["date2_str"] == result_date2
+    assert result[0][2] == result_date1
+    assert result[0][3] == result_date2
     assert len(result) == lenght
 
 
@@ -78,12 +76,10 @@ def test_period_day_without_end_date_range(
         frequency="day",
         num=num,
         delta=delta,
-        as_dict=True,
-        string_format="%Y-%m-%d",
     )
     print(result)
-    assert result[0]["date1_str"] == result_date1
-    assert result[0]["date2_str"] == result_date2
+    assert result[0][2] == result_date1
+    assert result[0][3] == result_date2
     assert len(result) == lenght
 
 
@@ -169,12 +165,10 @@ def test_period_week_range(
         frequency="week",
         num=num,
         delta=delta,
-        as_dict=True,
-        string_format="%Y-%m-%d",
     )
     print(result)
-    assert result[0]["date1_str"] == result_date1
-    assert result[0]["date2_str"] == result_date2
+    assert result[0][2] == result_date1
+    assert result[0][3] == result_date2
     assert len(result) == lenght
 
 
@@ -249,12 +243,10 @@ def test_period_month_range(
         frequency="month",
         num=num,
         delta=delta,
-        as_dict=True,
-        string_format="%Y-%m-%d",
     )
     print(result)
-    assert result[0]["date1_str"] == result_date1
-    assert result[0]["date2_str"] == result_date2
+    assert result[0][2] == result_date1
+    assert result[0][3] == result_date2
     assert len(result) == lenght
 
 
@@ -329,12 +321,10 @@ def test_period_quarter_range(
         frequency="quarter",
         num=num,
         delta=delta,
-        as_dict=True,
-        string_format="%Y-%m-%d",
     )
     print(result)
-    assert result[0]["date1_str"] == result_date1
-    assert result[0]["date2_str"] == result_date2
+    assert result[0][2] == result_date1
+    assert result[0][3] == result_date2
     assert len(result) == lenght
 
 
@@ -409,12 +399,10 @@ def test_period_year_range(
         frequency="year",
         num=num,
         delta=delta,
-        as_dict=True,
-        string_format="%Y-%m-%d",
     )
     print(result)
-    assert result[0]["date1_str"] == result_date1
-    assert result[0]["date2_str"] == result_date2
+    assert result[0][2] == result_date1
+    assert result[0][3] == result_date2
     assert len(result) == lenght
 
 
@@ -445,8 +433,6 @@ def test_period_year_range_custom(
         end_date=end_date,
         frequency="year",
         delta=delta,
-        as_dict=True,
-        string_format="%Y-%m-%d",
     )
     print(result)
 
